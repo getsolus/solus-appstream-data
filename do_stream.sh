@@ -19,5 +19,5 @@ appstream-builder --packages-dir=../clones --output-dir=./output \
 
 
 appstream-util mirror-screenshots \
-    output/solus-1.xml.gz https://screenshots.solus-project.com \
+    output/solus-1.xml.gz https://archive.solus-project.com/screenshots \
     ./cache ./output
