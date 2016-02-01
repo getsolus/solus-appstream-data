@@ -3,13 +3,14 @@
 pushd work/output
 
 mkdir mirror
+mkdir mirror/source
 
 for i in 112x63  224x126 1248x702  624x351 1504x846 752x423; do
-    cp -R $i/* mirror/.
+    cp -R $i mirror/.
 done
 
-pushd mirror
-tar xf ../*screenshots*.tar
+pushd mirror/source
+tar xf ../../*screenshots*.tar
 
 popd
 
