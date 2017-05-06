@@ -16,7 +16,7 @@ done
 
 appstream-builder --packages-dir=../clones --output-dir=./output \
                   --cache-dir=./cache --max-threads=4  \
-                  --log-dir=./logs --enable-hidpi -v --api-version=0.8 \
+                  --log-dir=./logs --enable-hidpi -v \
                   --include-failed --add-cache-id --basename=solus-1 --origin=solus
 
 
