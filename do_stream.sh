@@ -14,7 +14,7 @@ for dname in output cache logs icons ; do
     fi
 done
 
-appstream-builder --packages-dir=../clones --output-dir=./output \
+appstream-builder --packages-dir=/srv/solus/packages/unstable --output-dir=./output \
                   --cache-dir=./cache --max-threads=8  \
                   --log-dir=./logs --enable-hidpi -v \
                   --include-failed --add-cache-id --basename=solus-1 --origin=solus
