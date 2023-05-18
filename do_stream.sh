@@ -21,5 +21,5 @@ appstream-builder --packages-dir=/srv/solus/packages/unstable --output-dir=./out
 
 
 appstream-util mirror-screenshots \
-    output/solus-1.xml.gz https://packages.getsol.us/screenshots \
+    output/solus-1.xml.gz https://screenshots.getsol.us/ \
     ./cache ./output
