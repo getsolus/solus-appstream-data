@@ -1,3 +1,3 @@
 #!/bin/bash
 
-RSYNC_PASSWORD=mirror rsync -avzHL --exclude '*.delta.eopkg' mirrors.rit.edu::solus/packages/unstable . --delete
+rsync -avPHL --exclude '*.delta.eopkg' packages.getsol.us::soluspackages/unstable . --delete
