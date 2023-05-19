@@ -14,11 +14,11 @@ for dname in output cache logs icons ; do
     fi
 done
 
-appstream-builder --packages-dir=/srv/solus/packages/unstable --output-dir=./output \
-                  --cache-dir=./cache --max-threads=8  \
-                  --log-dir=./logs --enable-hidpi -v \
-                  --include-failed --add-cache-id --basename=solus-1 --origin=solus
-
+# If running on packages.getsol.us directly: --packages-dir=/srv/solus/packages/unstable
+appstream-builder --packages-dir=../clones --output-dir=./output \
+                  --cache-dir=./cache --log-dir=./logs -v \
+                  --include-failed --basename=solus-1 --origin=solus \
+                  --veto-ignore=missing-parents
 
 appstream-util mirror-screenshots \
     output/solus-1.xml.gz https://screenshots.getsol.us/ \
