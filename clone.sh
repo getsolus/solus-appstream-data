@@ -6,4 +6,4 @@ if ! command -v rsync > /dev/null
 	sudo eopkg install rsync -y
 fi
 
-rsync -avPHL --exclude '*.delta.eopkg' packages.getsol.us::soluspackages/unstable . --delete
+rsync -avPHL --exclude '*.delta.eopkg' --exclude '*-dbginfo-*.eopkg' packages.getsol.us::soluspackages/unstable . --delete
