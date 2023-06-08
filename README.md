@@ -53,7 +53,7 @@
 
     Once again, the .desktop must simply be installed to `/usr/share/applications/com.abisource.AbiWord.desktop`
 
-  Appstream generation generally also fails when the xml file specifies a icon (especially remote), e.g.
+  Appstream generation generally also fails when the xml file specifies a icon, see: https://github.com/hughsie/appstream-glib/issues/243#issuecomment-397224098
 
     `<icon type="remote" width="128" height="128">https://raw.githubusercontent.com/tkashkin/GameHub/e380a848b89498904e96e73fa72a07aa823151ce/data/icon/128.svg?</icon>`
 
