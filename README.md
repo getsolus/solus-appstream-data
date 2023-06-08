@@ -53,6 +53,12 @@
 
     Once again, the .desktop must simply be installed to `/usr/share/applications/com.abisource.AbiWord.desktop`
 
+  Appstream generation generally also fails when the xml file specifies a icon (especially remote), e.g.
+
+    `<icon type="remote" width="128" height="128">https://raw.githubusercontent.com/tkashkin/GameHub/e380a848b89498904e96e73fa72a07aa823151ce/data/icon/128.svg?</icon>`
+
+    Simply, removing the icon tag from the xml file and ensuring the desktop id matches the desktop filename on disk will generally fix the generation.
+
 - There may be other veto reasons of course, it's your job to look through the appstream xml file as well as desktop file to try and determine them.
 
 ### Testing Individual Packages
@@ -63,8 +69,8 @@
 
 - Run `sudo eopkg it appstream-glib`, `appstream-builder --packages-dir=. --include-failed -v`
 
-- Look in the `example-1-failed.xml.gz` file to see if the appstream generation failed
+- Look in the `example-failed.xml.gz` file to see if the appstream generation failed
 
-- Look in the `example-1.xml.gz` file to see if the appstream generation succeeded.
+- Look in the `example.xml.gz` file to see if the appstream generation succeeded.
 
 - Install the package and run `appstream-util validate /usr/share/metainfo/pkgname.xml`
