@@ -2,6 +2,12 @@
 set -e
 set -x
 
+if ! command -v appstream-builder > /dev/null
+	then
+	echo "appstream-glib not found. Installing now."
+	sudo eopkg install appstream-glib -y
+fi
+
 if [[ ! -d "work" ]]; then
     mkdir work
 fi
