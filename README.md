@@ -59,6 +59,14 @@
 
     Simply, removing the icon tag from the xml file and ensuring the desktop id matches the desktop filename on disk will generally fix the generation.
 
+  Appstream generation can also fail if the icon is symlinked from another path to one of the icon paths appstream-builder is expecting.
+
+    appstream-builder expects icons in the following paths: /usr/share/pixmaps/*, /usr/share/icons/*, /usr/share/icons/hicolor/*/apps/*, or /usr/share/${app_name}/icons/*.
+
+    If an icon is symlinked to one of those paths from another directory, appstream-builder will fail to find the icon. Install the icon to one of the expected paths directly
+
+    E.g. `ln -s %libdir%/thunderbird/chrome/icons/default/default256.png $installdir/usr/share/pixmaps/thunderbird.png` <- appstream-builder will fail to find the icon
+
 - There may be other veto reasons of course, it's your job to look through the appstream xml file as well as desktop file to try and determine them.
 
 ### Testing Individual Packages
