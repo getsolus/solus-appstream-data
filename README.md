@@ -1,6 +1,6 @@
 # Solus Appstream Generation
 
-## Initial documentation for regenerating appstream data (in-progress)
+## Regenerating appstream data
 
 1. Install `appstream-glib`, `rsync`
 
@@ -20,6 +20,26 @@
 7. Upload `./work/output/mirror.tar` to `packages.getsol.us:/srv/www/screenshots/`, create a tar backup of the old screenshots and untar in place, make sure the folder permissions are 0755.
 
 8. Load up software centre and check out some packages with metadata to confirm all is well
+
+7. Git commit along with a new tag
+
+8. Build `appstream-data` with the new tag and publish to the people.
+
+## Regenerating from teaparty server directly
+
+If you're lucky enough to ssh access to the teaparty repo, you can regenerate the appstream data directly from there without the need to clone the binary repo first.
+
+1. Download the `do_stream_teaparty.sh` and `install.sh` scripts to the server.
+
+2. Run `./do_stream_teaparty.sh` to actually generate the appstream data. Make sure to choose a quiet time when the server isn´t under much load.
+
+3. Run `./publish.sh` to copy the generated artefacts into the root directory.
+
+4. Sync the artefacts to this repo locally and run `./install.sh` to test out.
+
+5. On teaparty, move `./work/output/mirror.tar` to `/srv/www/screenshots/`, create a tar backup of the old screenshots and untar in place, make sure the folder permissions are 0755.
+
+6. Load up software centre and check out some packages with metadata to confirm all is well
 
 7. Git commit along with a new tag
 
