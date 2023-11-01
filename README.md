@@ -27,7 +27,7 @@
 
 ## Regenerating from teaparty server directly
 
-If you're lucky enough to ssh access to the teaparty repo, you can regenerate the appstream data directly from there without the need to clone the binary repo first.
+If you have ssh access to the teaparty repo (you have if you've done a sync), you can regenerate the appstream data directly from there without the need to clone the binary repo first.
 
 1. Download the `do_stream_teaparty.sh`, `publish.sh` scripts to the server.
 
