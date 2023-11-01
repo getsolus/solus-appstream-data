@@ -3,9 +3,9 @@ set -e
 set -x
 
 if ! command -v appstream-builder > /dev/null
-	then
-	echo "appstream-glib not found. Installing now."
-	sudo eopkg install appstream-glib -y
+    then
+    echo "appstream-glib not found. Installing now."
+    sudo eopkg install appstream-glib -y
 fi
 
 if [[ ! -d "work" ]]; then
@@ -20,11 +20,11 @@ for dname in output cache logs icons ; do
     fi
 done
 
-# If running on packages.getsol.us directly: --packages-dir=/srv/solus/packages/unstable
-appstream-builder --packages-dir=../clones --output-dir=./output \
+appstream-builder --packages-dir=/srv/ferryd/root/repo/unstable --output-dir=./output \
                   --cache-dir=./cache --log-dir=./logs -v \
                   --include-failed --basename=solus-1 --origin=solus \
-                  --veto-ignore=missing-parents
+                  --veto-ignore=missing-parents \
+                  --veto-ignore=add-default-icons
 
 appstream-util mirror-screenshots \
     output/solus-1.xml.gz https://screenshots.getsol.us/ \
