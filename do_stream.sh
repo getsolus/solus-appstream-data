@@ -20,7 +20,7 @@ for dname in output cache logs icons ; do
     fi
 done
 
-appstream-builder --packages-dir=/srv/ferryd/root/repo/unstable --output-dir=./output \
+appstream-builder --packages-dir=../clones --output-dir=./output \
                   --cache-dir=./cache --log-dir=./logs -v \
                   --include-failed --basename=solus-1 --origin=solus \
                   --veto-ignore=missing-parents \
