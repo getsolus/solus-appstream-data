@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 import gi
 gi.require_version('AppStreamGlib', '1.0')
 
@@ -11,6 +11,4 @@ store.load(AppStream.StoreLoadFlags.APP_INFO_SYSTEM)
 apps = store.get_apps()
 
 for app in apps:
-    print app.get_id() + ":" + app.get_pkgname_default()
-
-#print apps
+    print(app.get_id() + ":" + app.get_pkgname_default())
