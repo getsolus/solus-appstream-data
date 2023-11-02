@@ -36,7 +36,7 @@
 
 If you have ssh access to the teaparty repo server (you have if you've done a sync), you can regenerate the appstream data directly from there without the need to clone the binary repo first.
 
-1. SSH into teaparty and clone this repository, `git clone https://github.com/getsolus/solus-appstream-data.git`
+1. SSH into teaparty and go to `/srv/appstream-data` which is a shared directory of this repository.
 
 2. Run `./do_stream_teaparty.sh` to actually generate the appstream data. Try to choose a quiet time when the server isn't under much load.
 
@@ -48,18 +48,17 @@ If you have ssh access to the teaparty repo server (you have if you've done a sy
   - Move the screenshots archive to screenshots: `sudo mv work/output/mirror.tar /srv/www/screenshots/`
   - Untar in place, ensure permissions are correct: `pushd /srv/www/screenshots; sudo tar -xvf mirror.tar --strip-components=1 && chmod 0755 $(ls -d */); popd`
 
-5. Sync the artefacts to this repo locally and run `./install.sh` to test out.
+5. Sync the artefacts to this repo locally:
+  - `rsync -avPHL user@packages.getsol.us:/srv/appstream-data/*.gz .`
+  - `rsync -avPHL user@packages.getsol.us:/srv/appstream-data/*.tar .`
 
-6. Load up software centre and check out some packages with metadata to confirm all is well
+6. Run `./install.sh` to try out and load up the software centre and check out some packages with metadata to confirm all is well
 
 7. Git commit along with a new tag
 
 8. Build `appstream-data` with the new tag and publish to the people.
 
-9. Remove the `solus-appstream-data` repository from your home directory on teaparty when you're done.
-
 TODO:
-  - Generate the appdata in one location so we can make use of cached assets and save disk space
   - Make appstream-builder ignore -devel and -dbginfo packages
 
 ## Debugging Failures
