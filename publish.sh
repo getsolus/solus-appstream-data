@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ ! -d "work/output" ]]; then
     echo "No output directory found, have you ran appstream-builder?"
