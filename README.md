@@ -44,7 +44,9 @@ If you have ssh access to the teaparty repo server (you have if you've done a sy
 
 4. Installing screenshots:
   - Ensure the recently generated `mirror.tar` archive looks correct `tar -tvf ./work/output/mirror.tar`, it should contain screenshots
-  - Run `./install_screenshots_teaparty.sh`. You will need administrator access
+  - Create a backup of the previous screenshots: `pushd /srv/www/screenshots/; sudo tar --create --file=mirror.tar.backup $(ls -d */) && popd`
+  - Move the screenshots archive to screenshots: `sudo mv work/output/mirror.tar /srv/www/screenshots/`
+  - Untar in place, ensure permissions are correct: `pushd /srv/www/screenshots; sudo tar -xvf mirror.tar --strip-components=1 && chmod 0755 $(ls -d */); popd`
 
 5. Sync the artefacts to this repo locally:
   - `rsync -avPHL user@packages.getsol.us:/srv/appstream-data/*.gz .`
