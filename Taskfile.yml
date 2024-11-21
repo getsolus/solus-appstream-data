@@ -27,3 +27,9 @@ tasks:
       - task: generate
       - task: commit
       - task: push
+
+  appstream-init:
+    label: "Set up the local system to run this tooling"
+    cmds:
+      - "sudo eopkg install pyyaml ansible"
+      - "{{.TASKFILE_DIR}}/setup_inventory.py"
