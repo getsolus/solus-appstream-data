@@ -1,0 +1,29 @@
+version: 3
+vars:
+  NEXT_TAG:
+    sh: '{{.TASKFILE_DIR}}/get-next-tag.py'
+
+tasks:
+  generate:
+    label: "Generate Appstream metadata and download it"
+    cmds:
+      - "ansible-playbook -i inventory/hosts.yml -K playbook.yml"
+
+  commit:
+    label: "Add, commit, and tag new appstream data"
+    cmds:
+      - "git add solus-1-failed.xml.gz solus-1-icons.tar.gz solus-1-ignore.xml.gz solus-1-screenshots.tar solus-1.xml.gz"
+      - "git commit -m 'Refresh Appstream metainfo'"
+      - "git tag {{.NEXT_TAG}}"
+
+  push:
+    label: "Push changes to getsolus/solus-appstream-data"
+    cmds:
+      - "git push --tags"
+
+  full-process:
+    label: "Perform the entire appstream generation process"
+    cmds:
+      - task: generate
+      - task: commit
+      - task: push
