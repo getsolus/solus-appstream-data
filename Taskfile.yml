@@ -1,7 +1,7 @@
 version: 3
 vars:
   NEXT_TAG:
-    sh: '{{.TASKFILE_DIR}}/get-next-tag.py'
+    sh: '{{.TASKFILE_DIR}}/get_next_tag.py'
 
 tasks:
   generate:
