@@ -1,0 +1,149 @@
+---
+- name: Ensure requirements are met for building appstream data
+  hosts: teaparty
+  become: yes
+  tags:
+    - setup
+
+  tasks:
+    - name: Check for appstream-builder
+      ansible.builtin.raw: which appstream-builder
+      check_mode: false
+      changed_when: false
+      failed_when: which_res.rc > 1
+      register: which_res
+
+    - name: Ensure other dependencies are installed
+      ansible.builtin.dnf:
+        name:
+          - librsvg2
+          - gtk3
+          - libpng
+        state: present
+
+    - name: Remove old work directory to avoid permissions issues
+      ansible.builtin.file:
+        path: "/srv/appstream-data/work/"
+        state: absent
+
+- name: Actually build appstream data
+  hosts: teaparty
+  become: no
+  tags:
+    - generate
+
+  tasks:
+    - name: Ensure work/output directories exist
+      ansible.builtin.file:
+        path: "/srv/appstream-data/{{ item }}"
+        state: directory
+      loop:
+        - work/
+        - work/output
+        - work/cache
+        - work/logs
+        - work/icons
+        - work/tmp
+        - work/package-symlinks
+
+    - name: Select package files to parse using appstream-builder
+      ansible.builtin.command:
+        argv:
+          - python3
+          - /srv/appstream-data/create_symlinks.py
+          - /srv/ferryd/root/repo/unstable/eopkg-index.xml
+          - /srv/ferryd/root/repo/unstable/
+          - /srv/appstream-data/work/package-symlinks
+
+    - name: Run appstream-builder against the entire repository
+      ansible.builtin.command:
+        argv:
+          - appstream-builder
+          - --packages-dir=./package-symlinks
+          - --output-dir=./output
+          - --cache-dir=./cache
+          - --log-dir=./logs
+          - --include-failed
+          - --basename=solus-1
+          - --origin=solus
+          - --veto-ignore=missing-parents
+          - --veto-ignore=add-default-icons
+        chdir: /srv/appstream-data/work/
+
+    - name: Gather screenshots based on appstream data
+      ansible.builtin.command:
+        argv:
+          - appstream-util
+          - mirror-screenshots
+          - output/solus-1.xml.gz
+          - https://screenshots.getsol.us
+          - ./cache
+          - ./output
+        chdir: /srv/appstream-data/work/
+
+- name: Check generated appstream data
+  hosts: teaparty
+  become: no
+  tags:
+    - test_metadata
+
+  tasks:
+    - name: Check appstream metadata against eopkg index
+      ansible.builtin.command:
+        argv:
+          - /srv/appstream-data/check_packages_exist.py
+          - /srv/appstream-data/work/output/solus-1.xml.gz
+          - /srv/ferryd/root/repo/unstable/eopkg-index.xml
+
+    # TODO: need to test contents of screenshots archive
+
+- name: Install screenshots
+  hosts: teaparty
+  become: yes
+  tags:
+    - install_screenshots
+
+  tasks:
+    - name: Create a backup of existing screenshots
+      community.general.archive:
+        dest: /srv/www/screenshots/mirror.tar.backup
+        format: "tar"
+        path: /srv/www/screenshots/*
+        exclude_path:
+          - /srv/www/screenshots/mirror.tar
+          - /srv/www/screenshots/mirror.tar.backup
+
+    - name: Archive new screenshots
+      ansible.builtin.command:
+        argv:
+          - ./archive_screenshots.sh
+        chdir: /srv/appstream-data
+
+    - name: Extract new screenshots
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /srv/appstream-data/work/output/mirror.tar
+        dest: /srv/www/screenshots/
+        mode: "0755"
+        extra_opts:
+          - --strip-components=1
+
+- name: Fetch generated appstream data
+  hosts: teaparty
+  become: no
+  tags:
+    - fetch_appstream_data
+
+  tasks:
+    - name: Fetch appstream data
+      ansible.builtin.fetch:
+        src: "/srv/appstream-data/work/output/{{ item }}"
+        dest: "{{ playbook_dir }}/"
+        flat: true
+      loop:
+        - "solus-1-failed.xml.gz"
+        - "solus-1-icons.tar.gz"
+        - "solus-1-ignore.xml.gz"
+        - "solus-1-screenshots.tar"
+        - "solus-1.xml.gz"
+
