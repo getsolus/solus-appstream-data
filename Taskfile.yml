@@ -32,4 +32,5 @@ tasks:
     label: "Set up the local system to run this tooling"
     cmds:
       - "sudo eopkg install pyyaml ansible"
-      - "{{.TASKFILE_DIR}}/setup_inventory.py"
+      - "ansible-galaxy collection install community.general"
+      - "{{.TASKFILE_DIR}}/setup_inventory.py {{.TASKFILE_DIR}}/inventory/hosts.yml"
