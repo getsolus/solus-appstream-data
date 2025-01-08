@@ -41,7 +41,6 @@ def main():
 
 
 def get_packages_from_eopkg_index(xml_path: pathlib.Path) -> dict:
-    print('gothere')
     solus_xml = open(xml_path, 'r')
     tree = ElementTree.parse(solus_xml)
     root = tree.getroot()
@@ -49,7 +48,6 @@ def get_packages_from_eopkg_index(xml_path: pathlib.Path) -> dict:
         package.find("Name").text: package.find("History").findall("Update")[0].attrib['release']
         for package in root.findall("Package")
     }
-    # pprint(packages)
     return packages
 
 
@@ -65,7 +63,6 @@ def parse_package_filename(package_filename: str) -> dict:
 
 def check_file(path: pathlib.Path, eopkg_packages: dict) -> bool:
     eopkg_info = parse_package_filename(path.name)
-    print(eopkg_info)
     if (eopkg_info['name'] in eopkg_packages.keys() and eopkg_info['release'] == eopkg_packages[eopkg_info['name']])\
         and not eopkg_info['dbginfo']\
         :
