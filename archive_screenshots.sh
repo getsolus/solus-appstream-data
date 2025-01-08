@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 if [[ ! -d "work/output" ]]; then
     echo "No output directory found, have you ran appstream-builder?"
