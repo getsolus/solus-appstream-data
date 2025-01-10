@@ -7,11 +7,14 @@ These directions will guide you through configuring your system to generate apps
 > This assumes you have already completed the [Prepare for Packaging](https://help.getsol.us/docs/packaging/prepare-for-packaging) steps listed in the help center. You will need a fully-configured git setup for this tooling to work.
 > Additionally, your GitHub account must have push access to this repository (should be true for all staff).
 1. Ensure that your local clone of this repository is set up to be able to push (Cloning via GitHub CLI recommended).
-2. Ensure you have `go-task` installed. All interaction with this tooling should be possible through the `Taskfile.yml` in this repository.
-3. Run `go-task appstream-init`. This task will install `pyyaml` and `ansible` on your system, and then install the necessary ansible collection.
+2. Ensure that your account on `teaparty` has sudo access.
+3. Ensure you have `go-task` installed. All interaction with this tooling should be possible through the `Taskfile.yml` in this repository.
+4. Run `go-task appstream-init`. This task will install `pyyaml` and `ansible` on your system, and then install the necessary ansible collection.
 ### Generating Appstream Data
 This is the actual process of generating appstream metadata from our repository, which should ideally be done each week (after deprecations, but before sync). Make sure you've correctly completed all the Initial Setup steps first. 
-1. Run `go-task full-process` from this directory. That will automatically:
+1. Run `go-task full-process` from this directory. 
+2. When asked for your "BECOME password", enter your user's password on teaparty. 
+3. After you enter your password, the playbook will automatically:
     - Generate appstream data,
     - Check it against the eopkg index,
     - Download new metadata to your local clone of the repo,
@@ -20,7 +23,7 @@ This is the actual process of generating appstream metadata from our repository,
     - and push the changes to github.
 > [!NOTE]
 > This would be a good time to take a break and do something else. Just make sure your computer doesn't go to sleep. It takes a while (about 30 minutes).
-2. Go to your clone of the packages monorepo and update the `appstream-data` package to use the newly-tagged version of this repository. Follow standard packaging procedure to get those changes into the repository.
+5. Go to your clone of the packages monorepo and update the `appstream-data` package to use the newly-tagged version of this repository. Follow standard packaging procedure to get those changes into the repository.
 
 ## Debugging Failures
 
