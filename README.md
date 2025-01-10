@@ -8,7 +8,7 @@ These directions will guide you through configuring your system to generate apps
 > Additionally, your GitHub account must have push access to this repository (should be true for all staff).
 1. Ensure that your local clone of this repository is set up to be able to push (Cloning via GitHub CLI recommended).
 2. Ensure you have `go-task` installed. All interaction with this tooling should be possible through the `Taskfile.yml` in this repository.
-3. Run `go-task appstream-init`. This task will install `pyyaml` and `ansible` on your system and walk you through setting up the Ansible inventory you need for the playbook.
+3. Run `go-task appstream-init`. This task will install `pyyaml` and `ansible` on your system, and then install the necessary ansible collection.
 ### Generating Appstream Data
 This is the actual process of generating appstream metadata from our repository, which should ideally be done each week (after deprecations, but before sync). Make sure you've correctly completed all the Initial Setup steps first. 
 1. Run `go-task full-process` from this directory. That will automatically:
