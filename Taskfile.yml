@@ -19,7 +19,7 @@ tasks:
   push:
     label: "Push changes to getsolus/solus-appstream-data"
     cmds:
-      - "git push --tags"
+      - "git push --follow-tags"
 
   full-process:
     label: "Perform the entire appstream generation process"
