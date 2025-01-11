@@ -1,5 +1,0 @@
-teaparty:
-  hosts:
-    packages.getsol.us:
-      ansible_user: <your_user_on_teaparty>
-      # Set this to your username
