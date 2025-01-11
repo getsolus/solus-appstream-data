@@ -8,6 +8,7 @@ These directions will guide you through configuring your system to generate apps
 > Additionally, your GitHub account must have push access to this repository (should be true for all staff).
 1. Ensure that your local clone of this repository is set up to be able to push (Cloning via GitHub CLI recommended).
 2. Ensure that your account on `teaparty` has sudo access.
+3. Ensure that your SSH configuration specifies the correct username for connecting to `packages.getsol.us`. [This issue](https://github.com/getsolus/solus-team-docs/issues/60) in our team docs repo is where we are discussing how to document this for our infrastructure.
 3. Ensure you have `go-task` installed. All interaction with this tooling should be possible through the `Taskfile.yml` in this repository.
 4. Run `go-task appstream-init`. This task will install `pyyaml` and `ansible` on your system, and then install the necessary ansible collection.
 ### Generating Appstream Data
