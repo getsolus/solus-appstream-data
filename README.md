@@ -21,7 +21,9 @@ This is the actual process of generating appstream metadata from our repository,
     - Download new metadata to your local clone of the repo,
     - Commit the changes,
     - Add a new tag to the repository,
-    - and push the changes to github.
+    - _and push the changes to github._ - Work in progress
+      Due to a [bug](https://github.com/getsolus/solus-appstream-data/issues/6), you will need to push the tags yourself with
+      `git push --tags`
 > [!NOTE]
 > This would be a good time to take a break and do something else. Just make sure your computer doesn't go to sleep. It takes a while (about 30 minutes).
 5. Go to your clone of the packages monorepo and update the `appstream-data` package to use the newly-tagged version of this repository. Follow standard packaging procedure to get those changes into the repository.
