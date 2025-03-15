@@ -12,7 +12,8 @@ tasks:
   commit:
     label: "Add, commit, and tag new appstream data"
     cmds:
-      - "git add solus-1-failed.xml.gz solus-1-icons.tar.gz solus-1-ignore.xml.gz solus-1-screenshots.tar solus-1.xml.gz"
+      - "bash -c \"echo {{.NEXT_TAG}} >| latest_tag\""
+      - "git add solus-1-failed.xml.gz solus-1-icons.tar.gz solus-1-ignore.xml.gz solus-1-screenshots.tar solus-1.xml.gz latest_tag"
       - "git commit -m 'Refresh Appstream metainfo'"
       - "git tag {{.NEXT_TAG}}"
 
