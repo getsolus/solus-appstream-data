@@ -56,8 +56,8 @@ def parse_package_filename(package_filename: str) -> dict:
     output = {
         'name': package_split[0],
         'release': package_split[2],
-        'dbginfo': 'dbginfo' in package_filename,
-        'devel': 'devel' in package_filename,
+        'dbginfo': package_split[0].endswith('-dbginfo'),
+        'devel':  package_split[0].endswith('-devel'),
     }
     return output
 
