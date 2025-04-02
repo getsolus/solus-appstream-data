@@ -56,7 +56,8 @@ def parse_package_filename(package_filename: str) -> dict:
     output = {
         'name': package_split[0],
         'release': package_split[2],
-        'dbginfo': 'dbginfo' in package_filename
+        'dbginfo': 'dbginfo' in package_filename,
+        'devel': 'devel' in package_filename,
     }
     return output
 
@@ -65,6 +66,7 @@ def check_file(path: pathlib.Path, eopkg_packages: dict) -> bool:
     eopkg_info = parse_package_filename(path.name)
     if (eopkg_info['name'] in eopkg_packages.keys() and eopkg_info['release'] == eopkg_packages[eopkg_info['name']])\
         and not eopkg_info['dbginfo']\
+        and not eopkg_info['devel']\
         :
         return True
     else:
