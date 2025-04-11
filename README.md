@@ -24,23 +24,7 @@ This is the actual process of generating appstream metadata from our repository,
     - and push the changes to github.
 > [!NOTE]
 > This would be a good time to take a break and do something else. Just make sure your computer doesn't go to sleep. It takes a while (about 30 minutes).
-5. Go to your clone of the packages monorepo and update the `appstream-data` package to use the newly-tagged version of this repository.  
-You will need the tag from the output (just the number without the leading v).  
-Also note the tarball URL, for example, https://github.com/getsolus/solus-appstream-data/archive/refs/tags/v60.tar.gz
-
-```bash
-gotopkg appstream-data
-go-task update -- <tag> <url to tarball from GitHub>
-go-task
-```
-
-_Example update command:_
-
-```bash
-go-task update -- 60 https://github.com/getsolus/solus-appstream-data/archive/refs/tags/v60.tar.gz
-```
-
-Follow standard packaging procedure to get those changes into the repository.
+4. Follow the [AppStream Data package's update procesure](https://github.com/getsolus/packages/blob/main/packages/a/appstream-data/README.md) to get the newly-created metadata files into circulation.
 
 ## Debugging Failures
 
