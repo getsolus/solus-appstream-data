@@ -1,5 +1,9 @@
 # Solus Appstream Generation
 
+## NOTICE: Archived
+
+Solus now uses `appstream-generator` and unversioned, forward-rolling tarballs for it's appstream catalog. These scripts are for past reference only.
+
 ## Usage
 ### Initial Setup
 These directions will guide you through configuring your system to generate appstream data. You should only need to do this once.
